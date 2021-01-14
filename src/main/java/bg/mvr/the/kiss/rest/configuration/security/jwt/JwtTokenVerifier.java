@@ -36,19 +36,12 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String jwtToken = null;
-        String email = null;
         final String requestTokenHeader = request.getHeader("Authorization");
 
-        if (requestTokenHeader != null) {
-
-            try {
-                if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
-                    jwtToken = requestTokenHeader.substring(7);
-                    email = jwtUtils.getEmailFromToken(jwtToken);
-                } else {
-                    logger.warn("JWT Token does not begin with Bearer String");
-                }
+        try {
+            if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
+                String jwtToken = requestTokenHeader.substring(7);
+                String email = jwtUtils.getEmailFromToken(jwtToken);
 
                 if (email != null && jwtToken != null) {
 
@@ -60,11 +53,11 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                     }
                 }
-            } catch (JwtException e) {
-                logger.warn("Invalid token: " + e.getMessage());
-            } catch (RuntimeException e) {
-                logger.warn("Invalid token: " + e.getMessage());
             }
+        } catch (JwtException e) {
+            logger.warn("Invalid token: " + e.getMessage());
+        } catch (RuntimeException e) {
+            logger.warn("Invalid token: " + e.getMessage());
         }
         filterChain.doFilter(request, response);
     }
