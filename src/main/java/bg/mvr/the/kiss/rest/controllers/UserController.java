@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 21.09.2020.
+ * Date: 09.01.2021.
  * Time: 15:05.
  * Organization: DKIS MOIA.
  */
@@ -38,11 +38,7 @@ public class UserController {
 
     @PutMapping(path = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserSignUp> updateUser(@RequestBody UserSignUp userSignUp, Authentication authentication) throws IllegalAccessException {
-        User authenticatedUser = (User) authentication.getPrincipal();
-        if (!authenticatedUser.getEmail().equals(userSignUp.getEmail())) {
-            throw new IllegalAccessException("You must not change other user !");
-        }
-        User updatedUser = userService.updateUser(modelMapper.map(userSignUp,User.class), authenticatedUser.getId());
+        User updatedUser = userService.updateUser(modelMapper.map(userSignUp, User.class), authentication);
         return ResponseEntity.ok(modelMapper.map(updatedUser, UserSignUp.class));
     }
 

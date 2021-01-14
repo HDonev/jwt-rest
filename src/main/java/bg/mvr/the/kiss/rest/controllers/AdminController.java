@@ -1,6 +1,5 @@
 package bg.mvr.the.kiss.rest.controllers;
 
-import bg.mvr.the.kiss.rest.entities.User;
 import bg.mvr.the.kiss.rest.dto.ChangeRole;
 import bg.mvr.the.kiss.rest.dto.RoleForAdmin;
 import bg.mvr.the.kiss.rest.dto.UserForAdmin;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 08.10.2020.
+ * Date: 08.01.2021.
  * Time: 11:43.
  * Organization: DKIS MOIA.
  */
@@ -50,8 +49,7 @@ public class AdminController {
 
     @PostMapping("/user/change-role")
     public ResponseEntity changeRole(@RequestBody @Valid ChangeRole changeRole, Authentication authentication) {
-        User admin = (User) authentication.getPrincipal();
-        userService.changeRole(changeRole, admin.getId());
+        userService.changeRole(changeRole, authentication);
         return ResponseEntity.ok().build();
     }
 }

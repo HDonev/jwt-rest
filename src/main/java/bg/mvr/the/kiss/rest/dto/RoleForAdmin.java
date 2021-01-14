@@ -8,7 +8,7 @@ import lombok.Setter;
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 08.10.2020.
+ * Date: 08.01.2021.
  * Time: 14:24.
  * Organization: DKIS MOIA.
  */
@@ -17,5 +17,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoleForAdmin {
-    private String authority;
+    private String role;
 }

@@ -13,6 +13,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Created by IntelliJ IDEA.
+ * User: HDonev.
+ * Date: 05.01.2021.
+ * Time: 10:47.
+ * Organization: DKIS MOIA.
+ */
+
 @SpringBootApplication
 public class RestApplication implements CommandLineRunner {
 
@@ -40,8 +48,8 @@ public class RestApplication implements CommandLineRunner {
             roleService.insertRole(new Role("ADMIN"));
             userService.insertUser(modelMapper.map(new UserSignUp("admin@abv.bg", "admin", "P@ssw0rd"), User.class));
         }
-        if (bookService.findAllBooks().size()==0){
-            Book firstBook=new Book(0l,"Иван Вазов","Под Игото",true);
+        if (bookService.findAllBooks().size() == 0) {
+            Book firstBook = new Book(0l, "Иван Вазов", "Под Игото", true);
             bookService.insertBook(firstBook);
         }
     }

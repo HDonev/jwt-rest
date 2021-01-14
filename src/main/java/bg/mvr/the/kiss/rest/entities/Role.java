@@ -8,7 +8,7 @@ import javax.persistence.*;
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 23.09.2020.
+ * Date: 13.01.2021.
  * Time: 09:46.
  * Organization: DKIS MOIA.
  */

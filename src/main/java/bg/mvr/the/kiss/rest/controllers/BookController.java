@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 21.09.2020.
+ * Date: 10.01.2021.
  * Time: 09:13.
  * Organization: DKIS MOIA.
  */
@@ -35,7 +35,7 @@ public class BookController {
     @GetMapping(path = "/books/{name}")
     public ResponseEntity<List<Book>> getBookByName(@PathVariable String name) {
         List<Book> booksByName = bookService.findBookByName(name);
-        if (booksByName.size() > 0) {
+        if (!booksByName.isEmpty()) {
             return ResponseEntity.ok(booksByName);
         } else {
             return ResponseEntity.noContent().build();
@@ -65,7 +65,7 @@ public class BookController {
     }
 
     @DeleteMapping(path = "/book/{id}")
-    public ResponseEntity<Book> deleteBook(Long id) {
+    public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
         Book book = bookService.deleteById(id);
         return ResponseEntity.ok(book);
     }

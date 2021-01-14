@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import java.io.IOException;
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 07.10.2020.
+ * Date: 07.01.2021.
  * Time: 14:12.
  * Organization: DKIS MOIA.
  */

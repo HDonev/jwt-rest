@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 
 /**
  * Created by IntelliJ IDEA.
  * User: HDonev.
- * Date: 07.10.2020.
+ * Date: 07.01.2021.
  * Time: 09:07.
  * Organization: DKIS MOIA.
  */
@@ -30,18 +31,14 @@ import javax.validation.Valid;
 public class AuthController {
 
     private UserService userService;
-    private AuthenticationManager authenticationManager;
     private ModelMapper modelMapper;
-    private JwtUtils jwtUtils;
     public PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public AuthController(UserService userService, AuthenticationManager authenticationManager,ModelMapper modelMapper, JwtUtils jwtUtils, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
-        this.modelMapper=modelMapper;
-        this.jwtUtils = jwtUtils;
+        this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -52,10 +49,8 @@ public class AuthController {
         return ResponseEntity.ok(modelMapper.map(savedUser, UserSignUp.class));
     }
 
-    @PostMapping(value = "/sign-in",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sign-in", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> signIn(@Valid @RequestBody UserSignIn userSignIn) {
-        User user = userService.getUserEntityByEmail(userSignIn.getEmail());
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userSignIn.getEmail(), userSignIn.getPassword()));
-        return ResponseEntity.ok(jwtUtils.generateToken(user));
+        return ResponseEntity.ok(userService.signIn(modelMapper.map(userSignIn, User.class)));
     }
 }
