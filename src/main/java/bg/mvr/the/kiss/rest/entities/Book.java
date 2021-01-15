@@ -1,9 +1,8 @@
 package bg.mvr.the.kiss.rest.entities;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.Set;
+
 
 /**
  * Created by IntelliJ IDEA.

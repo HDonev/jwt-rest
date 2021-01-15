@@ -3,6 +3,7 @@ package bg.mvr.the.kiss.rest.controllers;
 import bg.mvr.the.kiss.rest.dto.ChangeRole;
 import bg.mvr.the.kiss.rest.dto.RoleForAdmin;
 import bg.mvr.the.kiss.rest.dto.UserForAdmin;
+import bg.mvr.the.kiss.rest.entities.User;
 import bg.mvr.the.kiss.rest.services.RoleService;
 import bg.mvr.the.kiss.rest.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -39,7 +40,8 @@ public class AdminController {
 
     @GetMapping("/user")
     public ResponseEntity<List<UserForAdmin>> findAllUsers() {
-        return ResponseEntity.ok().body(userService.findAllUsers().stream().map(user -> modelMapper.map(user, UserForAdmin.class)).collect(Collectors.toList()));
+        List<User> allUsers = userService.findAllUsers();
+        return ResponseEntity.ok().body(allUsers.stream().map(user -> modelMapper.map(user, UserForAdmin.class)).collect(Collectors.toList()));
     }
 
     @GetMapping("/role")

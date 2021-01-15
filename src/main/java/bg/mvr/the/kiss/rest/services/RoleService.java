@@ -1,7 +1,6 @@
 package bg.mvr.the.kiss.rest.services;
 
 import bg.mvr.the.kiss.rest.entities.Role;
-
 import java.util.List;
 
 /**

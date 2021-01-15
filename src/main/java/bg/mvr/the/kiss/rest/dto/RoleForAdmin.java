@@ -17,5 +17,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoleForAdmin {
-    private String role;
+    private String authority;
 }

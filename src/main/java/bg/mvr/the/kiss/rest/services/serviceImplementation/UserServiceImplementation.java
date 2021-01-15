@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -100,7 +99,7 @@ public class UserServiceImplementation implements UserService {
     public void changeRole(ChangeRole changeRole, Authentication authentication) {
         User admin = (User) authentication.getPrincipal();
         User userFromDB = userRepository.getUserEntityByEmail(changeRole.getEmail()).orElseThrow(() -> new IllegalArgumentException("User with email: " + changeRole.getEmail() + " doesn't exist"));
-        Set<Role> authorities = changeRole.getAuthorities().stream().map(role -> roleService.findRolesByAuthority(role.getRole())).collect(Collectors.toSet());
+        Set<Role> authorities = changeRole.getAuthorities().stream().map(role -> roleService.findRolesByAuthority(role.getAuthority())).collect(Collectors.toSet());
         userFromDB.setAuthorities(authorities);
         userFromDB.setLastModifiedBy(admin.getId());
         userFromDB.setLastModifiedDate(LocalDateTime.now());
@@ -109,7 +108,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public String signIn(User user) {
-        Authentication authenticate = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-        return this.jwtUtils.generateToken((User) authenticate.getPrincipal());
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        return jwtUtils.generateToken((User) authenticate.getPrincipal());
     }
 }
